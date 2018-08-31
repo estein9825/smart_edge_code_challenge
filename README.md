@@ -2,7 +2,7 @@
 By Ethan Stein
 
 ## Overview
-The purpose of this project is to demonstrate the coding challenge involved in taking an email address with a public/private keypair and generating a json result int he format:
+The purpose of this project is to demonstrate the coding challenge involved in taking an email address with a public/private keypair and generating a json result in the format:
 ```
 {
    "message":"[EMAIL_ADDRESS]",
