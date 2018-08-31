@@ -14,7 +14,7 @@ The purpose of this project is to demonstrate the coding challenge involved in t
 ## Usage
 The script is built with ruby and can either called directly, via:
 
-`signed_identifier.rb <EMAIL_ADDRESS>` 
+`./signed_identifier.rb <EMAIL_ADDRESS>` 
 
 where `<EMAIL_ADDRESS>` is a simple string, or by building an image from the Dockerfile accompanying this README:
 ```
