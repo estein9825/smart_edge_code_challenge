@@ -39,7 +39,7 @@ def signed_identifier(email)
 
   # verify key
   if priv_key.verify digest, signature, email
-    puts 'Valid signature'
+    # puts 'Valid signature'
   else
     raise "Invalid signature for #{email}!!!!"
   end
