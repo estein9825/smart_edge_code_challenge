@@ -10,9 +10,10 @@ The purpose of this project is to demonstrate the coding challenge involved in t
    "pubkey":"[Base64 encoded string (PEM format) of the public key]"
 }
 ```
+The program has been built using Ruby and leverages the OpenSSL, Base64, and Json libraries.
 
 ## Usage
-The script is built with ruby and can either called directly, via:
+The program can either called directly, via:
 
 `./signed_identifier.rb <EMAIL_ADDRESS>` 
 
