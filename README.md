@@ -2,7 +2,7 @@
 By Ethan Stein
 
 ## Overview
-The purpose of this project is to demonstrate the coding challenge involved in taking an email address with a public/private keypair and generating a json result in the format:
+The purpose of this project is to demonstrate the coding challenge involved in taking an email address with a public/private keypair and generating a json string result in the format:
 ```
 {
    "message":"[EMAIL_ADDRESS]",
@@ -12,12 +12,11 @@ The purpose of this project is to demonstrate the coding challenge involved in t
 ```
 
 ## Usage
-The script is built with ruby and can either be called directly, via:
+The script is built with ruby and can either called directly, via:
 
-`signed_identifier.rb <EMAIL_ADDRESS>`
+`signed_identifier.rb <EMAIL_ADDRESS>` 
 
-Or by building an image from the Dockerfile accompanying this README
-
+where `<EMAIL_ADDRESS>` is a simple string, or by building an image from the Dockerfile accompanying this README:
 ```
 docker build . -t codechallenge
 docker run codechallenge "super@superfun.com"
@@ -34,9 +33,12 @@ end
 remote_file '/tmp/kitchen/public_key.pem' do
   source 'file:///home/codechallenge/public_key.pem'
 end
+remote_file '/tmp/kitchen/signed_identifier.rb' do
+  source 'file:///home/codechallenge/signed_identifier.rb'
+end
 node.default['test']['email']='me@me.co'
 execute 'verify_email' do
-  command "/tmp/kitchen/signed_identifier.rb #{node['test']['email']} > result.json"
+  command "/tmp/kitchen/signed_identifier.rb \"#{node['test']['email']}\""
 end
 ```
 Alternatively, you can rebuild the ruby script as part of a RESTful API web application that will receive an email address as a GET parameter. Then deploy it as a docker package in a cloud instance, and expose a service that will allow people to make the GET call.
