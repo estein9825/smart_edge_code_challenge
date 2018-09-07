@@ -77,23 +77,9 @@ Simply update the `CHALLANGE_EMAIL` environment variable and run the rspec comma
 
 **Note**: the test suite will take care of building the Docker image, creating the container, and cleaning up the image and container after. No manual cleanup should be required.
 
-## Use Cases
-To leverage this functionality with continuous integration, you can incorporate it into a chef cookbook with the [execute](https://docs.chef.io/resource_execute.html) resource:
-```
-remote_file '/tmp/kitchen/private_key.pem' do
-  source 'file:///home/codechallenge/private_key.pem'
-end
-remote_file '/tmp/kitchen/public_key.pem' do
-  source 'file:///home/codechallenge/public_key.pem'
-end
-remote_file '/tmp/kitchen/signed_identifier.rb' do
-  source 'file:///home/codechallenge/signed_identifier.rb'
-end
-node.default['test']['email']='me@me.co'
-execute 'verify_email' do
-  command "/tmp/kitchen/signed_identifier.rb \"#{node['test']['email']}\""
-end
-```
-Alternatively, you can rebuild the ruby script as part of a RESTful API web application that will receive an email address as a GET parameter. Then deploy it as a docker package in a cloud instance, and expose a service that will allow people to make the GET call.
+## Regarding CI Integration
+For ease of straight rspec testing, I have exposed an environment variable in my rspec file to allow commandline testing.  If I was going to use this inside a CI system like chef, I would instead leverage attribute files or environment variables.
 
-Or, at they very least, you can hook a github repository like this one to a docker repository and set up an auto-build function, so whenever new changes are pushed to the github repository, then the docker image will be rebuilt automatically.
+Rspec could then be called via `chef rspec spec/unit/signed_identifier_spec.rb`
+
+Also, note, that my solution demonstrate how one could use a Docker container to both build and test the solution. However, a real-world scenario would be incorporating the ruby solution/tests as custom resources inside another cookbook/recipe. It would most likely not be an isolated component.
