@@ -1,0 +1,22 @@
+
+Smart Edge Challenge Test Suite
+  verify necessary files exist in current location
+    File "./private_key.pem"
+      should exist
+      should be file
+    File "./public_key.pem"
+      should exist
+      should be file
+    File "Dockerfile"
+      should exist
+      should be file
+  verify provided email
+    should be formatted correctly
+  verify email encryption with docker run
+    should generate a json response
+    json response should be valid
+    json signature should verify successfully
+
+Finished in 4.86 seconds (files took 0.87908 seconds to load)
+10 examples, 0 failures
+

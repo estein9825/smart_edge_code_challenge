@@ -25,6 +25,58 @@ docker run codechallenge "super@superfun.com"
 
 In either case, the public and private key-pairs must be in the same location as the program/dockerfile, or the program will not run.
 
+## Testing
+
+A serverspec test suite has been created to verify the following:
+1. The private and public keys are available in the current directory (as well as the Dockerfile for good measure)
+2. The `CHALLANGE_EMAIL` environment variable is of a valid format and not null/empty
+2. Docker creates a valid json response using the email, defined by the format above
+3. The json `message` field is the same as the provided email
+4. The json `signature` field successfully verifies against the email address and private key. 
+
+To run the test suite execute the following commands:
+
+```
+bundle install
+export CHALLANGE_EMAIL="something@test.com"
+rspec spec/unit/signed_identifier_spec.rb
+```
+
+The result should be similar to
+
+```
+Using bundler 1.16.4
+...
+Using serverspec 2.41.3
+Bundle complete! 3 Gemfile dependencies, 18 gems now installed.
+Use `bundle info [gemname]` to see where a bundled gem is installed.
+
+Smart Edge Challenge Test Suite
+  verify necessary files exist in current location
+    File "./private_key.pem"
+      should exist
+      should be file
+    File "./public_key.pem"
+      should exist
+      should be file
+    File "Dockerfile"
+      should exist
+      should be file
+  verify provided email
+    should be formatted correctly
+  verify email encryption with docker run
+    should generate a json response
+    json response should be valid
+    json signature should verify successfully
+
+Finished in 5.06 seconds (files took 0.8341 seconds to load)
+10 examples, 0 failures
+```
+
+Simply update the `CHALLANGE_EMAIL` environment variable and run the rspec command again to test a different email address.
+
+**Note**: the test suite will take care of building the Docker image, creating the container, and cleaning up the image and container after. No manual cleanup should be required.
+
 ## Use Cases
 To leverage this functionality with continuous integration, you can incorporate it into a chef cookbook with the [execute](https://docs.chef.io/resource_execute.html) resource:
 ```
