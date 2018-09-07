@@ -78,8 +78,8 @@ Simply update the `CHALLANGE_EMAIL` environment variable and run the rspec comma
 **Note**: the test suite will take care of building the Docker image, creating the container, and cleaning up the image and container after. No manual cleanup should be required.
 
 ## Regarding CI Integration
-For ease of straight rspec testing, I have exposed an environment variable in my rspec file to allow commandline testing.  If I was going to use this inside a CI system like chef, I would instead leverage attribute files or environment variables.
+For ease of straight rspec testing, I have exposed an environment variable in my rspec file to allow command-line testing.  If I was going to use this inside a CI system like chef, I would instead leverage attribute files or environment variables.
 
 Rspec could then be called via `chef rspec spec/unit/signed_identifier_spec.rb`
 
-Also, note, that my solution demonstrate how one could use a Docker container to both build and test the solution. However, a real-world scenario would be incorporating the ruby solution/tests as custom resources inside another cookbook/recipe. It would most likely not be an isolated component.
+Also, note, that my solution demonstrates how one could use a Docker container to both build and test the solution. However, a real-world scenario would be incorporating the ruby solution/tests as custom resources inside another cookbook/recipe. It would most likely not be an isolated component.
