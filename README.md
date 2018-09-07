@@ -29,7 +29,7 @@ In either case, the public and private key-pairs must be in the same location as
 
 A serverspec test suite has been created to verify the following:
 1. The private and public keys are available in the current directory (as well as the Dockerfile for good measure)
-2. The `CHALLANGE_EMAIL` environment variable is of a valid format and not null/empty
+2. The program's input email address is of a valid format and not null/empty
 2. Docker creates a valid json response using the email, defined by the format above
 3. The json `message` field is the same as the provided email
 4. The json `signature` field successfully verifies against the email address and private key. 
